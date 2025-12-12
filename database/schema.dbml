@@ -1,0 +1,68 @@
+Table users {
+  id integer [primary key]
+  username varchar
+  password varchar
+  role_id integer
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table sellers {
+  id integer [primary key]
+  user_id integer [ref: > users.id]
+  type tinyint
+  fullname varchar
+  nric varchar
+  status tinyint
+  approved_at timestamp
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table roles {
+  id integer [primary key]
+  name varchar
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table books {
+  id integer [primary key]
+  seller_id integer [ref: > sellers.id]
+  user_id integer [ref: > users.id]
+  category_id integer [ref: > categories.id]
+  type tinyint
+  fullname varchar
+  nric varchar
+  status tinyint
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table categories {
+  id integer [primary key]
+  name varchar
+  created_by integer [ref: > users.id]
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table category_book {
+  id integer [primary key]
+  book_id integer [ref: > books.id]
+  category_id integer [ref: > categories.id]
+  created_by integer [ref: > users.id]
+  created_at timestamp
+}
+
+Table orders {
+  id integer [primary key]
+  user_id integer [ref: > users.id]
+}
+
+Table order_item {
+  id integer [primary key]
+  order_id integer [ref: > orders.id]
+  book_id integer [ref: > books.id]
+}
+
