@@ -27,8 +27,8 @@ class DatabaseSeeder extends Seeder
             SellerStatusSeeder::class,
 
             UserSeeder::class,
-            BookSeeder::class,
             CategorySeeder::class,
+            BookSeeder::class,
         ]);
     }
 }

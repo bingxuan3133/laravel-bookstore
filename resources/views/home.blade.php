@@ -124,7 +124,7 @@
         <div class="max-w-[1600px] mx-auto px-6 lg:px-8 py-8">
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
                 @foreach($categories as $category)
-                <a href="#" class="group bg-neutral-800 border-3 border-neutral-700 hover:border-coral p-6 text-center transition-all duration-200 hover:-translate-y-1">
+                <a href="{{ route('books.index', ['category' => $category->slug]) }}" class="group bg-neutral-800 border-3 border-neutral-700 hover:border-coral p-6 text-center transition-all duration-200 hover:-translate-y-1">
                     <div class="text-4xl mb-3">📚</div>
                     <div class="text-white font-bold text-sm uppercase tracking-wide group-hover:text-coral transition-colors">
                         {{ $category->name ?? 'Category' }}

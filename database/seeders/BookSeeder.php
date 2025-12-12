@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Book;
+use App\Models\Category;
 use App\Models\Seller;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -17,6 +18,9 @@ class BookSeeder extends Seeder
         $booksJson = file_get_contents(base_path('books.json'));
         $books = json_decode($booksJson, true);
 
+        // Create a map of category names to IDs
+        $categoryMap = Category::pluck('id', 'name');
+
         foreach(array_slice($books, 0, 10) as $book)
         {
             Book::create([
@@ -29,6 +33,7 @@ class BookSeeder extends Seeder
                 'link' => $book['link'],
                 'pages' => $book['pages'],
                 'year' => $book['year'],
+                'category_id' => $categoryMap[$book['genre']] ?? null,
             ]);
         }
     }

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('link');
             $table->integer('pages');
             $table->integer('year');
+            $table->foreignId('category_id')->nullable()->constrained();
             $table->timestamps();
         });
     }

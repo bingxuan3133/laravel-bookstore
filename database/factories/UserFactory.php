@@ -41,7 +41,7 @@ class UserFactory extends Factory
             $role = Role::where('name', 'Admin')->first();
 
             return [
-                'name' => 'Admin' . $attributes['name'],
+                'name' => 'Admin ' . $attributes['name'],
                 'role_id' => $role->id,
             ];
         });
@@ -53,7 +53,7 @@ class UserFactory extends Factory
             $role = Role::where('name', 'Seller')->first();
 
             return [
-                'name' => 'Admin' . $attributes['name'],
+                'name' => 'Seller ' . $attributes['name'],
                 'role_id' => $role->id,
             ];
         })->afterCreating(function ($user) {
@@ -74,7 +74,7 @@ class UserFactory extends Factory
             $role = Role::where('name', 'User')->first();
 
             return [
-                'name' => 'Admin' . $attributes['name'],
+                'name' => 'User ' . $attributes['name'],
                 'role_id' => $role->id,
             ];
         });

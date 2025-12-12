@@ -10,10 +10,19 @@ use Illuminate\Pagination\Paginator;
 class BookController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $books = Book::paginate();
-        $categories = Category::all();
+        $categories = Category::select('id', 'name', 'slug')->get();
+        $query = Book::with('category');
+
+        // Filter by category slug if provided
+        if ($categorySlug = $request->query('category')) {
+            $query->whereHas('category', function($q) use ($categorySlug) {
+                $q->where('slug', $categorySlug);
+            });
+        }
+
+        $books = $query->paginate(9);
 
         return view('books.index', compact('books', 'categories'));
     }

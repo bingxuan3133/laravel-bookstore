@@ -105,7 +105,7 @@
                                 All Books
                             </a>
                             @foreach($categories as $category)
-                            <a href="?category={{ $category->id }}" class="block py-2 px-3 {{ request('category') == $category->id ? 'bg-coral text-white border-3 border-neutral-900' : 'hover:bg-neutral-100' }} font-medium transition-colors">
+                            <a href="?category={{ $category->slug }}" class="block py-2 px-3 {{ request('category') == $category->slug ? 'bg-coral text-white border-3 border-neutral-900' : 'hover:bg-neutral-100' }} font-medium transition-colors">
                                 {{ $category->name }}
                             </a>
                             @endforeach
@@ -148,7 +148,7 @@
                             @endif
                             @if(request('category'))
                             <div class="flex items-center justify-between bg-white border-2 border-neutral-900 px-3 py-2">
-                                <span class="text-sm font-medium">Category: {{ $categories->find(request('category'))->name ?? 'Unknown' }}</span>
+                                <span class="text-sm font-medium">Category: {{ $categories->firstWhere('slug', request('category'))->name ?? 'Unknown' }}</span>
                                 <a href="?{{ http_build_query(array_diff_key(request()->query(), ['category' => ''])) }}" class="text-coral hover:text-neutral-900">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
@@ -226,7 +226,7 @@
                                 <!-- Seller Info -->
                                 <div class="flex items-center gap-2 pt-2">
                                     <div class="w-6 h-6 rounded-full bg-neutral-300 border-2 border-neutral-900"></div>
-                                    <span class="text-xs text-neutral-500">by <span class="font-bold text-neutral-900">{{ $book->seller->name ?? 'Seller Name' }}</span></span>
+                                    <span class="text-xs text-neutral-500">by <span class="font-bold text-neutral-900">{{ $book->seller->store_name ?? 'Seller Name' }}</span></span>
                                 </div>
 
                                 <!-- Add to Cart -->
