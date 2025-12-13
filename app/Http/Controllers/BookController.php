@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\Paginator;
 
 class BookController extends Controller
 {
@@ -13,7 +12,7 @@ class BookController extends Controller
     public function index(Request $request)
     {
         $categories = Category::select('id', 'name', 'slug')->get();
-        $query = Book::with('category');
+        $query = Book::with(['category', 'seller']);
 
         // Filter by category slug if provided
         if ($categorySlug = $request->query('category')) {
@@ -22,7 +21,7 @@ class BookController extends Controller
             });
         }
 
-        $books = $query->paginate(9);
+        $books = $query->paginate(9)->withQueryString();
 
         return view('books.index', compact('books', 'categories'));
     }
