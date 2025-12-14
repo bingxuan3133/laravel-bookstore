@@ -57,3 +57,15 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+## How to Setup
+composer run dev
+npm run dev
+
+## Dev one-time setup
+to create symlink public folder to laravel storage drive storage/app/public
+php artisan storage:link
+
+laravel pagination
+php artisan vendor:publish --tag=laravel-pagination

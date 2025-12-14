@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
 use App\Models\Book;
+use App\Models\Seller;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
-class SellerDashboardController extends Controller
+class DashboardController extends Controller
 {
     public function index()
     {
@@ -15,7 +17,7 @@ class SellerDashboardController extends Controller
         $seller = Auth::user()->seller;
 
         if (!$seller) {
-            abort(403, 'You are not registered as a seller.');
+            abort(Response::HTTP_FORBIDDEN, 'You are not registered as a seller.');
         }
 
         $stats = [

@@ -28,12 +28,12 @@ class BookSeeder extends Seeder
                 'title' => $book['title'],
                 'author' => $book['author'],
                 'country' => $book['country'],
-                'imageLink' => $book['imageLink'],
                 'language' => $book['language'],
                 'link' => $book['link'],
                 'pages' => $book['pages'],
                 'year' => $book['year'],
                 'category_id' => $categoryMap[$book['genre']] ?? null,
+                'is_active' => true,
             ]);
         }
     }

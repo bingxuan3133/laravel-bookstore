@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
-
     public function index(Request $request)
     {
         $categories = Category::select('id', 'name', 'slug')->get();

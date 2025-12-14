@@ -9,13 +9,13 @@ use App\Models\Seller;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class AdminDashboardController extends Controller
+class DashboardController extends Controller
 {
     public function index()
     {
         $stats = [
             'total_books' => Book::count(),
-            'active_sellers' => Seller::where('status_id', 2)->count(), // Assuming status_id 2 is 'Approved'
+            'active_sellers' => Seller::where('seller_status_id', 2)->count(), // Assuming status_id 2 is 'Approved'
             'total_users' => User::count(),
             'total_categories' => Category::count(),
         ];

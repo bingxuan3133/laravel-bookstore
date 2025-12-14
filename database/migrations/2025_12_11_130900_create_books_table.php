@@ -17,12 +17,12 @@ return new class extends Migration
             $table->string('title');
             $table->string('author');
             $table->string('country');
-            $table->string('imageLink');
             $table->string('language');
             $table->string('link');
             $table->integer('pages');
             $table->integer('year');
             $table->foreignId('category_id')->nullable()->constrained();
+            $table->boolean('is_active');
             $table->timestamps();
         });
     }

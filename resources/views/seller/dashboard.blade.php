@@ -146,11 +146,11 @@
                     <div class="bg-amber-400 border-r-2 border-neutral-900 h-full" style="width: 89%"></div>
                 </div>
 
-                <div class="mt-6 pt-4 border-t-2 border-neutral-200">
+                {{-- <div class="mt-6 pt-4 border-t-2 border-neutral-200">
                     <a href="{{ route('seller.analytics') }}" class="block text-center text-sm text-sage hover:text-neutral-900 font-bold uppercase tracking-wide">
                         View Full Analytics →
                     </a>
-                </div>
+                </div> --}}
             </div>
         </div>
 
@@ -166,9 +166,9 @@
                 <a href="{{ route('seller.orders.index') }}" class="block w-full bg-coral text-white px-4 py-3 border-3 border-neutral-900 shadow-brutal hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all duration-200 font-bold uppercase text-sm tracking-wide text-center">
                     Process Orders
                 </a>
-                <a href="{{ route('seller.earnings') }}" class="block w-full bg-neutral-900 text-white px-4 py-3 border-3 border-neutral-900 shadow-brutal hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all duration-200 font-bold uppercase text-sm tracking-wide text-center">
+                {{-- <a href="{{ route('seller.earnings') }}" class="block w-full bg-neutral-900 text-white px-4 py-3 border-3 border-neutral-900 shadow-brutal hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all duration-200 font-bold uppercase text-sm tracking-wide text-center">
                     View Earnings
-                </a>
+                </a> --}}
             </div>
         </div>
 

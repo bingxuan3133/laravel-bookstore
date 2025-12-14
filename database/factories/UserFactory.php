@@ -62,7 +62,7 @@ class UserFactory extends Factory
             Seller::create([
                 'user_id' => $user->id,
                 'store_name' => fake()->company(),
-                'description' => fake()->sentence(),
+                'about' => fake()->sentence(),
                 'seller_status_id' => $approvedSellerStatus->id, // Active status
             ]);
         });

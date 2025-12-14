@@ -49,21 +49,6 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
                     </svg>
                     <span>Orders</span>
-                    <span class="ml-auto px-2 py-0.5 bg-coral border-2 border-neutral-900 text-xs font-bold">3</span>
-                </a>
-
-                <a href="{{ route('seller.earnings') }}" class="flex items-center gap-3 px-4 py-3 text-white hover:bg-white/10 border-3 border-transparent hover:border-white/30 transition-all duration-200 font-medium {{ request()->routeIs('seller.earnings') ? 'bg-white/20 border-white/50' : '' }}">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                    </svg>
-                    <span>Earnings</span>
-                </a>
-
-                <a href="{{ route('seller.analytics') }}" class="flex items-center gap-3 px-4 py-3 text-white hover:bg-white/10 border-3 border-transparent hover:border-white/30 transition-all duration-200 font-medium {{ request()->routeIs('seller.analytics') ? 'bg-white/20 border-white/50' : '' }}">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-                    </svg>
-                    <span>Analytics</span>
                 </a>
 
                 <div class="my-4 border-t-2 border-white/20"></div>
