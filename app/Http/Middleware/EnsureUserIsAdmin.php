@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Enums\UserRole;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,11 +16,11 @@ class EnsureUserIsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (! auth()->check()) {
+        if (!auth()->check()) {
             return redirect()->route('login')->with('failed', 'Please login');
         }
 
-        if (!auth()->check() || !auth()->user()->role || auth()->user()->role->name !== 'Admin') {
+        if (auth()->user()->role !== UserRole::ADMIN) {
             abort(Response::HTTP_FORBIDDEN, 'Unauthorized - Admin access required.');
         }
 

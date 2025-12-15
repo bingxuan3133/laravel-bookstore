@@ -58,12 +58,12 @@
                     <span>Sellers</span>
                 </a>
 
-                <a href="{{ route('admin.users.index') }}" class="flex items-center gap-3 px-4 py-3 text-white hover:bg-neutral-800 border-3 border-transparent hover:border-coral transition-all duration-200 font-medium {{ request()->routeIs('admin.users.*') ? 'bg-coral border-coral' : '' }}">
+                {{-- <a href="{{ route('admin.users.index') }}" class="flex items-center gap-3 px-4 py-3 text-white hover:bg-neutral-800 border-3 border-transparent hover:border-coral transition-all duration-200 font-medium {{ request()->routeIs('admin.users.*') ? 'bg-coral border-coral' : '' }}">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
                     </svg>
                     <span>Users</span>
-                </a>
+                </a> --}}
 
                 <div class="my-4 border-t-2 border-neutral-800"></div>
 

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->string('store_name');
             $table->string('about');
-            $table->foreignId('seller_status_id')->constrained();
+            $table->string('seller_status')->index('seller_status');
             $table->timestamps();
         });
     }

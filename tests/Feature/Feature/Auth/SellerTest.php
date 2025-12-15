@@ -1,17 +1,16 @@
 <?php
 
 use function Pest\Laravel\actingAs;
+
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 uses(\Illuminate\Foundation\Testing\RefreshDatabase::class)
     ->beforeEach(function () {
-        $this->seed(\Database\Seeders\DatabaseSeeder::class);
-        // $this->seed(\Database\Seeders\RoleSeeder::class);
-        // $this->seed(\Database\Seeders\SellerStatusSeeder::class);
     });
 
 test('seller can login', function () {
-    $seller = Auth::loginUsingId(2);
+    $seller = User::factory()->seller()->create();
 
     actingAs($seller) 
         ->get('/seller/dashboard')
@@ -19,7 +18,7 @@ test('seller can login', function () {
 });
 
 test('seller got 403 when trying to access admin page', function () {
-    $seller = Auth::loginUsingId(2);
+    $seller = User::factory()->seller()->create();
 
     actingAs($seller) 
         ->get('/admin/dashboard')

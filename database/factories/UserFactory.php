@@ -2,9 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Enums\SellerStatus as EnumsSellerStatus;
 use App\Models\Role;
 use App\Models\Seller;
-use App\Models\SellerStatus;
+use App\Enums\UserRole;
+use App\Enums\SellerStatus;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -38,11 +40,9 @@ class UserFactory extends Factory
     public function admin(): static
     {
         return $this->state(function (array $attributes) {
-            $role = Role::where('name', 'Admin')->first();
-
             return [
                 'name' => 'Admin ' . $attributes['name'],
-                'role_id' => $role->id,
+                'role' => UserRole::ADMIN,
             ];
         });
     }
@@ -50,20 +50,15 @@ class UserFactory extends Factory
     public function seller(): static
     {
         return $this->state(function (array $attributes) {
-            $role = Role::where('name', 'Seller')->first();
-
             return [
                 'name' => 'Seller ' . $attributes['name'],
-                'role_id' => $role->id,
+                'role' => UserRole::SELLER,
             ];
         })->afterCreating(function ($user) {
-            $approvedSellerStatus = SellerStatus::where('name', 'Approved')->first();
-
-            Seller::create([
-                'user_id' => $user->id,
+            $user->seller()->create([
                 'store_name' => fake()->company(),
                 'about' => fake()->sentence(),
-                'seller_status_id' => $approvedSellerStatus->id, // Active status
+                'seller_status' => SellerStatus::Approved,
             ]);
         });
     }
@@ -71,11 +66,9 @@ class UserFactory extends Factory
     public function user(): static
     {
         return $this->state(function (array $attributes) {
-            $role = Role::where('name', 'User')->first();
-
             return [
                 'name' => 'User ' . $attributes['name'],
-                'role_id' => $role->id,
+                'role' => UserRole::USER,
             ];
         });
     }

@@ -34,6 +34,8 @@ class BookSeeder extends Seeder
                 'year' => $book['year'],
                 'category_id' => $categoryMap[$book['genre']] ?? null,
                 'is_active' => true,
+                'stock' => 1,
+                'price' => fake()->numberBetween(10, 50),
             ]);
         }
     }

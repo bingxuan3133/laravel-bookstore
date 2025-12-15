@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Enums\UserRole;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +16,7 @@ class EnsureUserIsSeller
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!auth()->check() || !auth()->user()->role || auth()->user()->role->name !== 'Seller') {
+        if (!auth()->check() || auth()->user()->role !== UserRole::SELLER) {
             abort(Response::HTTP_FORBIDDEN, 'You are not registered as a seller.');
         }
 

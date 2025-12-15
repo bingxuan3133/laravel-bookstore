@@ -23,6 +23,8 @@ class Book extends Model implements HasMedia
         'pages',
         'year',
         'category_id',
+        'stock',
+        'price',
         'is_active',
     ];
 
@@ -33,14 +35,16 @@ class Book extends Model implements HasMedia
 
     public function category(): BelongsTo
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class)->withDefault([
+            'name' => 'Uncategorized'
+        ]);
     }
 
     public function registerMediaConversions(?Media $media = null): void
     {
         $this
             ->addMediaConversion('preview')
-            ->fit(Fit::Contain, 300, 300)
+            ->fit(Fit::Contain, 500, 500)
             ->nonQueued();
     }
 

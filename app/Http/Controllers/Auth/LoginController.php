@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Enums\UserRole;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -50,14 +51,14 @@ class LoginController extends Controller
     {
         // Check if user has a role relationship
         if ($user->role) {
-            switch ($user->role->name) {
-                case 'Admin':
+            switch ($user->role) {
+                case UserRole::ADMIN:
                     return redirect()->intended(route('admin.dashboard'));
 
-                case 'Seller':
+                case UserRole::SELLER:
                     return redirect()->intended(route('seller.dashboard'));
 
-                case 'User':
+                case UserRole::USER:
                 default:
                     return redirect()->intended(route('home'));
             }

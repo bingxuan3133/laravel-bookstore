@@ -22,6 +22,8 @@ return new class extends Migration
             $table->integer('pages');
             $table->integer('year');
             $table->foreignId('category_id')->nullable()->constrained();
+            $table->integer('stock');
+            $table->decimal('price');
             $table->boolean('is_active');
             $table->timestamps();
         });

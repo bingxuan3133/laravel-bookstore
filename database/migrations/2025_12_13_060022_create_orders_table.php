@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('order_number')->unique();
+            $table->string('customer_name');
+            $table->string('customer_email');
+            $table->string('shipping_address');
+            $table->string('status')->default();
             $table->timestamps();
         });
     }
@@ -23,10 +29,5 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('orders');
-    }
-
-    public function shouldRun(): bool
-    {
-        return false;
     }
 };

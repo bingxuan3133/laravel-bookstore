@@ -1,57 +1,8 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Browse Books - Bookoo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body class="bg-neutral-50 text-neutral-900 font-body">
-    <!-- Header -->
-    <header class="sticky top-0 z-50 bg-neutral-900 border-b-4 border-coral shadow-brutal">
-        <div class="max-w-[1600px] mx-auto px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <!-- Logo -->
-                <a href="{{ route('home') }}" class="flex items-center gap-3 group">
-                    <div class="w-12 h-12 bg-coral border-3 border-neutral-900 rotate-3 group-hover:rotate-12 transition-transform duration-300 flex items-center justify-center">
-                        <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M13 2.05v3.03c3.39.49 6 3.39 6 6.92 0 .9-.18 1.75-.48 2.54l2.6 1.53c.56-1.24.88-2.62.88-4.07 0-5.18-3.95-9.45-9-9.95zM12 19c-3.87 0-7-3.13-7-7 0-3.53 2.61-6.43 6-6.92V2.05c-5.06.5-9 4.76-9 9.95 0 5.52 4.47 10 9.99 10 3.31 0 6.24-1.61 8.06-4.09l-2.6-1.53C16.17 17.98 14.21 19 12 19z"/>
-                        </svg>
-                    </div>
-                    <span class="text-3xl font-bold font-display text-white tracking-tight">Bookoo</span>
-                </a>
+@extends('layouts.users')
 
-                <!-- Navigation -->
-                <nav class="hidden md:flex items-center gap-8">
-                    <a href="{{ route('home') }}" class="text-white font-medium hover:text-coral transition-colors duration-200 uppercase text-sm tracking-wide">Home</a>
-                    <a href="#" class="text-coral font-medium transition-colors duration-200 uppercase text-sm tracking-wide">Browse</a>
-                    <a href="#" class="text-white font-medium hover:text-coral transition-colors duration-200 uppercase text-sm tracking-wide">New Arrivals</a>
-                    <a href="#" class="text-white font-medium hover:text-coral transition-colors duration-200 uppercase text-sm tracking-wide">Sellers</a>
-                </nav>
+@section('title', 'Browse Books - Bookoo')
 
-                <!-- Actions -->
-                <div class="flex items-center gap-4">
-                    <button class="text-white hover:text-coral transition-colors">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                        </svg>
-                    </button>
-                    <a href="#" class="text-white hover:text-coral transition-colors">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-                        </svg>
-                    </a>
-                    <button class="bg-coral text-white px-6 py-2.5 border-3 border-neutral-900 shadow-brutal hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all duration-200 font-bold uppercase text-sm tracking-wide">
-                        Cart (0)
-                    </button>
-                </div>
-            </div>
-        </div>
-    </header>
-
+@section('content')
     <!-- Page Header -->
     <section class="bg-gradient-to-br from-sage/30 via-neutral-100 to-neutral-50 border-b-4 border-neutral-900 py-12">
         <div class="max-w-[1600px] mx-auto px-6 lg:px-8">
@@ -180,37 +131,51 @@
                     <!-- Books Grid -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
                         @foreach($books as $index => $book)
-                        <div class="group cursor-pointer">
+                        <div class="group">
                             <!-- Book Cover -->
-                            <div class="relative bg-gradient-to-br from-neutral-700 to-neutral-900 aspect-[3/4] border-4 border-neutral-900 shadow-brutal mb-4 overflow-hidden group-hover:-translate-y-2 transition-all duration-300">
-                                <!-- Placeholder for book cover image -->
-                                <div class="absolute inset-0 flex items-center justify-center text-white font-display font-bold text-2xl text-center p-6 bg-gradient-to-br {{ ['from-coral to-red-600', 'from-sage to-green-700', 'from-amber-500 to-orange-600', 'from-blue-500 to-indigo-700', 'from-purple-500 to-pink-600', 'from-teal-500 to-cyan-600'][$index % 6] }}">
-                                    {{ $book->title ?? 'Book Title' }}
-                                </div>
+                            <a href="{{ route('books.show', $book->id) }}" class="block relative bg-gradient-to-br from-neutral-700 to-neutral-900 aspect-[3/4] border-4 border-neutral-900 shadow-brutal mb-4 overflow-hidden group-hover:-translate-y-2 transition-all duration-300">
+                                @if($book->hasMedia('book_covers'))
+                                    <img src="{{ $book->getFirstMediaUrl('book_covers', 'preview') }}"
+                                         alt="{{ $book->title }}"
+                                         class="w-full h-full object-cover">
+                                @else
+                                    <div class="absolute inset-0 flex items-center justify-center text-white font-display font-bold text-2xl text-center p-6 bg-gradient-to-br {{ ['from-coral to-red-600', 'from-sage to-green-700', 'from-amber-500 to-orange-600', 'from-blue-500 to-indigo-700', 'from-purple-500 to-pink-600', 'from-teal-500 to-cyan-600'][$index % 6] }}">
+                                        {{ $book->title ?? 'Book Title' }}
+                                    </div>
+                                @endif
 
                                 <!-- Hover Overlay -->
                                 <div class="absolute inset-0 bg-neutral-900/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                    <a href="#" class="bg-coral text-white px-6 py-3 border-3 border-white shadow-brutal-sm font-bold uppercase text-sm tracking-wide hover:scale-105 transition-transform">
-                                        Quick View
-                                    </a>
+                                    <span class="bg-coral text-white px-6 py-3 border-3 border-white shadow-brutal-sm font-bold uppercase text-sm tracking-wide hover:scale-105 transition-transform">
+                                        View Details
+                                    </span>
                                 </div>
 
                                 <!-- Price Tag -->
                                 <div class="absolute top-4 right-4 bg-white border-3 border-neutral-900 px-3 py-1.5 shadow-brutal-sm">
-                                    <span class="font-black text-lg text-coral">${{ $book->price ?? '24.99' }}</span>
+                                    <span class="font-black text-lg text-coral">${{ number_format($book->price, 2) }}</span>
                                 </div>
 
                                 <!-- Condition Badge -->
                                 <div class="absolute top-4 left-4 bg-sage text-neutral-900 border-3 border-neutral-900 px-3 py-1 shadow-brutal-sm">
                                     <span class="font-bold text-xs uppercase tracking-wide">{{ $book->condition ?? 'New' }}</span>
                                 </div>
-                            </div>
+
+                                @if($book->stock <= 0)
+                                <!-- Out of Stock Badge -->
+                                <div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-red-500 text-white border-3 border-neutral-900 px-4 py-2 shadow-brutal-sm">
+                                    <span class="font-bold text-xs uppercase tracking-wide">Out of Stock</span>
+                                </div>
+                                @endif
+                            </a>
 
                             <!-- Book Info -->
                             <div class="space-y-2">
-                                <h3 class="font-display font-bold text-xl leading-tight group-hover:text-coral transition-colors line-clamp-2">
-                                    {{ $book->title ?? 'Book Title' }}
-                                </h3>
+                                <a href="{{ route('books.show', $book->id) }}">
+                                    <h3 class="font-display font-bold text-xl leading-tight hover:text-coral transition-colors line-clamp-2">
+                                        {{ $book->title ?? 'Book Title' }}
+                                    </h3>
+                                </a>
                                 <p class="text-neutral-600 font-medium">{{ $book->author ?? 'Author Name' }}</p>
 
                                 <div class="flex items-center gap-3 pt-2">
@@ -229,10 +194,21 @@
                                     <span class="text-xs text-neutral-500">by <span class="font-bold text-neutral-900">{{ $book->seller->store_name ?? 'Seller Name' }}</span></span>
                                 </div>
 
-                                <!-- Add to Cart -->
-                                <button class="w-full bg-neutral-900 text-white py-3 border-3 border-neutral-900 shadow-brutal hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all duration-200 font-bold uppercase text-sm tracking-wide mt-3 opacity-0 group-hover:opacity-100">
-                                    Add to Cart
+                                <!-- Add to Cart Button -->
+                                @if($book->stock > 0)
+                                <form action="{{ route('cart.add') }}" method="POST" class="mt-3">
+                                    @csrf
+                                    <input type="hidden" name="book_id" value="{{ $book->id }}">
+                                    <input type="hidden" name="quantity" value="1">
+                                    <button type="submit" class="w-full bg-coral text-white py-3 border-3 border-neutral-900 shadow-brutal hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all duration-200 font-bold uppercase text-sm tracking-wide">
+                                        Add to Cart
+                                    </button>
+                                </form>
+                                @else
+                                <button disabled class="w-full bg-neutral-300 text-neutral-500 py-3 border-3 border-neutral-400 cursor-not-allowed font-bold uppercase text-sm tracking-wide mt-3">
+                                    Out of Stock
                                 </button>
+                                @endif
                             </div>
                         </div>
                         @endforeach
@@ -296,67 +272,4 @@
             </div>
         </div>
     </section>
-
-    <!-- Footer -->
-    <footer class="bg-neutral-900 border-t-4 border-coral py-16">
-        <div class="max-w-[1600px] mx-auto px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
-                <!-- Brand -->
-                <div class="lg:col-span-2">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-12 h-12 bg-coral border-3 border-white rotate-3 flex items-center justify-center">
-                            <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M13 2.05v3.03c3.39.49 6 3.39 6 6.92 0 .9-.18 1.75-.48 2.54l2.6 1.53c.56-1.24.88-2.62.88-4.07 0-5.18-3.95-9.45-9-9.95zM12 19c-3.87 0-7-3.13-7-7 0-3.53 2.61-6.43 6-6.92V2.05c-5.06.5-9 4.76-9 9.95 0 5.52 4.47 10 9.99 10 3.31 0 6.24-1.61 8.06-4.09l-2.6-1.53C16.17 17.98 14.21 19 12 19z"/>
-                            </svg>
-                        </div>
-                        <span class="text-3xl font-bold font-display text-white tracking-tight">Bookoo</span>
-                    </div>
-                    <p class="text-neutral-400 leading-relaxed max-w-md">
-                        Your marketplace for books. Connecting readers with sellers, stories with seekers, and communities with culture.
-                    </p>
-                </div>
-
-                <!-- Links -->
-                <div>
-                    <h4 class="text-white font-bold uppercase tracking-wide text-sm mb-4">Shop</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-neutral-400 hover:text-coral transition-colors">All Books</a></li>
-                        <li><a href="#" class="text-neutral-400 hover:text-coral transition-colors">New Arrivals</a></li>
-                        <li><a href="#" class="text-neutral-400 hover:text-coral transition-colors">Categories</a></li>
-                        <li><a href="#" class="text-neutral-400 hover:text-coral transition-colors">Best Sellers</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="text-white font-bold uppercase tracking-wide text-sm mb-4">Sell</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-neutral-400 hover:text-coral transition-colors">Become a Seller</a></li>
-                        <li><a href="#" class="text-neutral-400 hover:text-coral transition-colors">Seller Dashboard</a></li>
-                        <li><a href="#" class="text-neutral-400 hover:text-coral transition-colors">Pricing</a></li>
-                        <li><a href="#" class="text-neutral-400 hover:text-coral transition-colors">Resources</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="text-white font-bold uppercase tracking-wide text-sm mb-4">Support</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-neutral-400 hover:text-coral transition-colors">Help Center</a></li>
-                        <li><a href="#" class="text-neutral-400 hover:text-coral transition-colors">Shipping Info</a></li>
-                        <li><a href="#" class="text-neutral-400 hover:text-coral transition-colors">Returns</a></li>
-                        <li><a href="#" class="text-neutral-400 hover:text-coral transition-colors">Contact Us</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="border-t-2 border-neutral-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-                <p class="text-neutral-500 text-sm">© 2025 Bookoo. All rights reserved.</p>
-                <div class="flex gap-6">
-                    <a href="#" class="text-neutral-500 hover:text-coral transition-colors text-sm">Privacy Policy</a>
-                    <a href="#" class="text-neutral-500 hover:text-coral transition-colors text-sm">Terms of Service</a>
-                    <a href="#" class="text-neutral-500 hover:text-coral transition-colors text-sm">Cookie Policy</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-</body>
-</html>
+@endsection

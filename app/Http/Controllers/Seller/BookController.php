@@ -22,7 +22,7 @@ class BookController extends Controller
 
         $books = $seller->books()->with('media')->with('category')->paginate(9)->withQueryString();
 
-        return view('seller.books', compact('books', 'totalBooks', 'publishedBooks', 'unpublishedBooks'));
+        return view('seller.books.index', compact('books', 'totalBooks', 'publishedBooks', 'unpublishedBooks'));
     }
 
     /**
@@ -30,7 +30,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        return view('seller.books-create');
+        return view('seller.books.create');
     }
 
     /**
@@ -47,6 +47,8 @@ class BookController extends Controller
             'link' => $request['link'],
             'pages' => $request['pages'],
             'year' => $request['year'],
+            'stock' => $request['stock'],
+            'price' => $request['price'],
             'is_active' => true,
         ]);
 

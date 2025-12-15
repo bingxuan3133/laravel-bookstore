@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\SellerStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Book;
 use App\Models\Category;
@@ -15,7 +16,7 @@ class DashboardController extends Controller
     {
         $stats = [
             'total_books' => Book::count(),
-            'active_sellers' => Seller::where('seller_status_id', 2)->count(), // Assuming status_id 2 is 'Approved'
+            'active_sellers' => Seller::where('seller_status', SellerStatus::Approved)->count(),
             'total_users' => User::count(),
             'total_categories' => Category::count(),
         ];

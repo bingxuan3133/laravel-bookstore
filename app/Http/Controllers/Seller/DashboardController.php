@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
 use App\Models\Book;
-use App\Models\Seller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +12,6 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // Get the current seller (assuming auth user has a seller relationship)
         $seller = Auth::user()->seller;
 
         if (!$seller) {

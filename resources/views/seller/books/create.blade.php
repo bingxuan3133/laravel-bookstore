@@ -199,6 +199,48 @@
                     <p class="mt-2 text-xs text-neutral-500">External link or reference for this book</p>
                 </div>
 
+                <!-- Stock -->
+                <div>
+                    <label for="stock" class="block text-sm font-bold uppercase tracking-wide text-neutral-700 mb-2">
+                        Number of Stock <span class="text-coral">*</span>
+                    </label>
+                    <input
+                        type="number"
+                        id="stock"
+                        name="stock"
+                        value="{{ old('stock') }}"
+                        class="w-full px-4 py-3 border-3 border-neutral-900 focus:outline-none focus:ring-3 focus:ring-sage focus:ring-offset-2 font-medium @error('stock') border-coral @enderror"
+                        placeholder="e.g., 1"
+                        min="1"
+                        required
+                    >
+                    @error('stock')
+                        <p class="mt-2 text-sm text-coral font-medium">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Price -->
+                <div>
+                    <label for="price" class="block text-sm font-bold uppercase tracking-wide text-neutral-700 mb-2">
+                        Price <span class="text-coral">*</span>
+                    </label>
+                    <input
+                        type="number"
+                        id="price"
+                        name="price"
+                        value="{{ old('price') }}"
+                        class="w-full px-4 py-3 border-3 border-neutral-900 focus:outline-none focus:ring-3 focus:ring-sage focus:ring-offset-2 font-medium @error('price') border-coral @enderror"
+                        placeholder="e.g., 1"
+                        step="0.01"
+                        min="0"
+                        inputmode="decimal"
+                        required
+                    >
+                    @error('price')
+                        <p class="mt-2 text-sm text-coral font-medium">{{ $message }}</p>
+                    @enderror
+                </div>
+
                 <!-- Divider -->
                 <div class="border-t-2 border-neutral-200"></div>
 

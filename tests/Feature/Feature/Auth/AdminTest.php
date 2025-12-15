@@ -7,13 +7,9 @@ use Illuminate\Support\Facades\Auth;
 
 uses(\Illuminate\Foundation\Testing\RefreshDatabase::class)
     ->beforeEach(function () {
-        // $this->seed(\Database\Seeders\RoleSeeder::class);
-        // $this->seed(\Database\Seeders\SellerStatusSeeder::class);
-        // $this->seed(\Database\Seeders\CategorySeeder::class);
     });
 
 test('admin can login', function () {
-    // $this->seed([RoleSeeder::class]);
     $admin = User::factory()->admin()->create();
 
     $this->actingAs($admin)
@@ -22,7 +18,6 @@ test('admin can login', function () {
 });
 
 test('admin got 403 when trying to access seller page', function () {
-    $this->seed([RoleSeeder::class]);
     $admin = User::factory()->admin()->create();
 
     actingAs($admin) 

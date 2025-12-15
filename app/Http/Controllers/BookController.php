@@ -20,16 +20,47 @@ class BookController extends Controller
             });
         }
 
+        // Filter by search query
+        if ($search = $request->query('search')) {
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhere('author', 'like', "%{$search}%");
+            });
+        }
+
+        // Apply sorting
+        switch ($request->query('sort')) {
+            case 'price_low':
+                $query->orderBy('price', 'asc');
+                break;
+            case 'price_high':
+                $query->orderBy('price', 'desc');
+                break;
+            case 'title':
+                $query->orderBy('title', 'asc');
+                break;
+            default:
+                $query->latest();
+        }
+
         $books = $query->paginate(9)->withQueryString();
 
         return view('books.index', compact('books', 'categories'));
     }
 
-    // public function show($bookId)
-    // {
-    //     $book = Book::find($bookId);
+    public function show(Book $book)
+    {
+        $book->load(['category', 'seller']);
 
-    //     return view('book.show', compact('book'));
-    // }
-    
+        // Get related books from the same category
+        $relatedBooks = Book::where('category_id', $book->category_id)
+            ->where('id', '!=', $book->id)
+            ->where('is_active', true)
+            // ->where('stock', '>', 0)
+            ->inRandomOrder()
+            ->limit(5)
+            ->get();
+
+        return view('books.show', compact('book', 'relatedBooks'));
+    }
 }

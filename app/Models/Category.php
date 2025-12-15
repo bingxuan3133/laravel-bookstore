@@ -11,6 +11,11 @@ class Category extends Model
 {
     use HasSlug;
 
+    protected $fillable = [
+        'name',
+        'description',
+    ];
+
     /**
      * Get the options for generating the slug.
      */
@@ -25,5 +30,22 @@ class Category extends Model
     public function book(): HasMany
     {
         return $this->hasMany(Book::class);
+    }
+
+    /**
+     * Get all categories with an "Uncategorized" option at the beginning
+     */
+    public static function allWithUncategorized()
+    {
+        $categories = static::all();
+
+        // Create a virtual "Uncategorized" category
+        $uncategorized = new static();
+        $uncategorized->id = null;
+        $uncategorized->name = 'Uncategorized';
+        $uncategorized->slug = 'uncategorized';
+        $uncategorized->exists = false;
+
+        return collect([$uncategorized])->concat($categories);
     }
 }

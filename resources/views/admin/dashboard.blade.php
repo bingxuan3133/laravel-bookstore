@@ -129,10 +129,7 @@
                 <h2 class="text-xl font-bold font-display uppercase tracking-wide">Quick Actions</h2>
             </div>
             <div class="p-6 space-y-3">
-                <a href="{{ route('admin.books.create') }}" class="block w-full bg-coral text-white px-4 py-3 border-3 border-neutral-900 shadow-brutal hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all duration-200 font-bold uppercase text-sm tracking-wide text-center">
-                    + Add Book
-                </a>
-                <a href="{{ route('admin.categories.create') }}" class="block w-full bg-sage text-neutral-900 px-4 py-3 border-3 border-neutral-900 shadow-brutal hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all duration-200 font-bold uppercase text-sm tracking-wide text-center">
+                <a href="{{ route('admin.categories.index') }}" class="block w-full bg-sage text-neutral-900 px-4 py-3 border-3 border-neutral-900 shadow-brutal hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all duration-200 font-bold uppercase text-sm tracking-wide text-center">
                     + Add Category
                 </a>
                 <a href="{{ route('admin.sellers.index') }}" class="block w-full bg-neutral-900 text-white px-4 py-3 border-3 border-neutral-900 shadow-brutal hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all duration-200 font-bold uppercase text-sm tracking-wide text-center">
@@ -172,7 +169,7 @@
                     </div>
                 </div>
 
-                <a href="{{ route('admin.sellers.index') }}" class="block mt-4 text-center text-sm text-coral hover:text-neutral-900 font-bold uppercase tracking-wide">
+                <a href="{{ route('admin.sellers.index', ['status' => 'pending']) }}" class="block mt-4 text-center text-sm text-coral hover:text-neutral-900 font-bold uppercase tracking-wide">
                     View All Pending →
                 </a>
             </div>
