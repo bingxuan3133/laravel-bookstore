@@ -44,11 +44,16 @@ Table categories {
 Table orders {
   id integer [primary key]
   user_id integer [ref: > users.id]
+  subtotal decimal
+  tax decimal
+  total decimal
 }
 
 Table order_item {
   id integer [primary key]
   order_id integer [ref: > orders.id]
   book_id integer [ref: > books.id]
+  quantity integer
+  price decimal
+  total decimal
 }
-

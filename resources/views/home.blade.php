@@ -228,7 +228,7 @@
 
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
                 @foreach($categories as $category)
-                <a href="{{ route('books.index', ['category' => $category]) }}" class="group bg-white border-4 border-neutral-900 shadow-brutal hover:translate-x-1 hover:translate-y-1 hover:shadow-none hover:bg-coral transition-all duration-200 p-8 text-center">
+                <a href="{{ route('books.index', ['category' => $category->slug]) }}" class="group bg-white border-4 border-neutral-900 shadow-brutal hover:translate-x-1 hover:translate-y-1 hover:shadow-none hover:bg-coral transition-all duration-200 p-8 text-center">
                     <div class="text-5xl mb-4 group-hover:scale-110 transition-transform">📖</div>
                     <h3 class="font-display font-bold text-lg mb-1 group-hover:text-white transition-colors">{{ $category->name ?? 'Category' }}</h3>
                     <p class="text-neutral-500 text-sm group-hover:text-white/80 transition-colors">120+ books</p>
