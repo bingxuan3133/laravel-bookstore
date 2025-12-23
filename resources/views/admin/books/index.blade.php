@@ -79,8 +79,8 @@
                 <tr class="hover:bg-neutral-50 transition-colors">
                     <td class="px-6 py-4">
                         <div class="flex items-center gap-4">
-                            @if($book->hasMedia('book_covers'))
-                                <img src="{{ $book->getFirstMediaUrl('book_covers', 'preview') }}"
+                            @if($book->hasMedia('book_cover'))
+                                <img src="{{ $book->getFirstMediaUrl('book_cover', 'preview') }}"
                                      alt="{{ $book->title }}"
                                      class="w-12 h-16 object-cover border-3 border-neutral-900 flex-shrink-0">
                             @else

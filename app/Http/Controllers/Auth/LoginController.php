@@ -52,13 +52,13 @@ class LoginController extends Controller
         // Check if user has a role relationship
         if ($user->role) {
             switch ($user->role) {
-                case UserRole::ADMIN:
+                case UserRole::Admin:
                     return redirect()->intended(route('admin.dashboard'));
 
-                case UserRole::SELLER:
+                case UserRole::Seller:
                     return redirect()->intended(route('seller.dashboard'));
 
-                case UserRole::USER:
+                case UserRole::User:
                 default:
                     return redirect()->intended(route('home'));
             }
@@ -78,6 +78,6 @@ class LoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('home');
+        return redirect()->route('login');
     }
 }

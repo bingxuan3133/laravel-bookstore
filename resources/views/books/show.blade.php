@@ -35,8 +35,8 @@
                     <div class="grid md:grid-cols-[400px_1fr] gap-8 mb-12">
                         <!-- Book Cover -->
                         <div>
-                            @if($book->hasMedia('book_covers'))
-                                <img src="{{ $book->getFirstMediaUrl('book_covers') }}"
+                            @if($book->hasMedia('book_cover'))
+                                <img src="{{ $book->getFirstMediaUrl('book_cover') }}"
                                      alt="{{ $book->title }}"
                                      class="w-full aspect-[3/4] object-cover border-4 border-neutral-900 shadow-brutal">
                             @else
@@ -236,8 +236,8 @@
                 @foreach($relatedBooks as $index => $relatedBook)
                 <a href="{{ route('books.show', $relatedBook->id) }}" class="group">
                     <div class="relative bg-gradient-to-br from-neutral-700 to-neutral-900 aspect-[3/4] border-4 border-neutral-900 shadow-brutal mb-3 overflow-hidden group-hover:-translate-y-2 transition-all duration-300">
-                        @if($relatedBook->hasMedia('book_covers'))
-                            <img src="{{ $relatedBook->getFirstMediaUrl('book_covers', 'preview') }}"
+                        @if($relatedBook->hasMedia('book_cover'))
+                            <img src="{{ $relatedBook->getFirstMediaUrl('book_cover', 'preview') }}"
                                  alt="{{ $relatedBook->title }}"
                                  class="w-full h-full object-cover">
                         @else

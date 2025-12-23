@@ -7,6 +7,47 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
+    public function index()
+    {
+        $cart = session()->get('cart', []);
+        $bookIds = array_keys($cart);
+        $books = Book::with('seller', 'media')->findMany($bookIds);
+
+        return view('cart.index', compact('cart', 'books'));
+    }
+
+    public function updateQuantity(Request $request, $bookId)
+    {
+        $request->validate([
+            'quantity' => 'required|integer|min:0'
+        ]);
+
+        $book = Book::findOrFail($bookId);
+        $cart = session()->get('cart', []);
+
+        if (!isset($cart[$bookId])) {
+            return redirect()->route('cart.index')->with('error', 'Item not found in cart');
+        }
+
+        // If quantity is 0, remove from cart
+        if ($request->quantity <= 0) {
+            unset($cart[$bookId]);
+            session()->put('cart', $cart);
+            return redirect()->route('cart.index')->with('success', 'Item removed from cart');
+        }
+
+        // Check stock availability
+        if ($request->quantity > $book->stock) {
+            return redirect()->route('cart.index')->with('error', 'Not enough stock available. Only ' . $book->stock . ' items left.');
+        }
+
+        // Update quantity
+        $cart[$bookId]['quantity'] = $request->quantity;
+        session()->put('cart', $cart);
+
+        return redirect()->route('cart.index')->with('success', 'Quantity updated');
+    }
+
     public function addToCart(Request $request)
     {
         $book = Book::findOrFail($request->book_id);
@@ -27,7 +68,7 @@ class CartController extends Controller
 
         session()->put('cart', $cart);
 
-        return redirect()->back()->with('success', 'Product added to cart!');
+        return redirect()->back()->with('success', 'Item added to cart!');
     }
 
     public function removeFromCart($bookId)
@@ -39,6 +80,6 @@ class CartController extends Controller
             session()->put('cart', $cart);
         }
 
-        return redirect()->back()->with('success', 'Product removed from cart!');
+        return redirect()->back()->with('success', 'Item removed from cart!');
     }
 }

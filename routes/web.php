@@ -20,10 +20,12 @@ Route::get('/books/{book}', [BookController::class, 'show'])->name('books.show')
 
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
+Route::patch('/cart/update/{book}', [CartController::class, 'updateQuantity'])->name('cart.update');
 Route::delete('/cart/remove/{book}', [CartController::class, 'removeFromCart'])->name('cart.remove');
 
-// Route::get('orders/{order}', [CheckoutController::class, 'show']); // View order details
-// Route::post('orders', [CheckoutController::class, 'store']); // Place an order
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+Route::get('/checkout/success/{order}', [CheckoutController::class, 'success'])->name('checkout.success');
 
 // Authentication Routes
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -72,7 +74,7 @@ Route::middleware('auth')->group(function () {
             Route::patch('/books/{book}/unpublish', [Seller\BookController::class, 'unpublish'])->name('books.unpublish');
         });
         Route::resource('orders', Seller\OrderController::class)
-            ->only(['index', 'show']);
+            ->only(['index', 'show', 'update']);
         Route::get('/store/settings', [Seller\StoreController::class, 'settings'])->name('store.settings');
         Route::patch('/store/settings', [Seller\StoreController::class, 'settings'])->name('store.settings.update');
         Route::get('/help', function () { return 'Help & Support'; })->name('help');

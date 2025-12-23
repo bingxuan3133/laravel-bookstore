@@ -11,7 +11,7 @@ class BookController extends Controller
     public function index(Request $request)
     {
         $categories = Category::select('id', 'name', 'slug')->get();
-        $query = Book::with(['category', 'seller']);
+        $query = Book::with(['category', 'seller', 'media']);
 
         // Filter by category slug if provided
         if ($categorySlug = $request->query('category')) {

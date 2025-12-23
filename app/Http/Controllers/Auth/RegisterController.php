@@ -35,7 +35,7 @@ class RegisterController extends Controller
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
-            'role' => $validated['role'] === 'seller' ? UserRole::SELLER->value : UserRole::USER->value,
+            'role' => $validated['role'] === 'seller' ? UserRole::Seller->value : UserRole::User->value,
         ]);
 
         // Create seller if role is seller
@@ -52,7 +52,7 @@ class RegisterController extends Controller
         Auth::login($user);
 
         // Redirect based on role
-        if ($user->role === UserRole::SELLER->value) {
+        if ($user->role === UserRole::Seller->value) {
             return redirect()->route('seller.dashboard')
                 ->with('message', 'Welcome! Your seller account is pending approval.');
         }

@@ -134,8 +134,8 @@
                         <div class="group">
                             <!-- Book Cover -->
                             <a href="{{ route('books.show', $book->id) }}" class="block relative bg-gradient-to-br from-neutral-700 to-neutral-900 aspect-[3/4] border-4 border-neutral-900 shadow-brutal mb-4 overflow-hidden group-hover:-translate-y-2 transition-all duration-300">
-                                @if($book->hasMedia('book_covers'))
-                                    <img src="{{ $book->getFirstMediaUrl('book_covers', 'preview') }}"
+                                @if($book->hasMedia('book_cover'))
+                                    <img src="{{ $book->getFirstMediaUrl('book_cover', 'preview') }}"
                                          alt="{{ $book->title }}"
                                          class="w-full h-full object-cover">
                                 @else

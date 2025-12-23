@@ -54,7 +54,7 @@ class BookController extends Controller
 
         if ($request->hasFile('image'))
         {
-            $book->addMedia($request->file('image'))->toMediaCollection('book_covers');
+            $book->addMedia($request->file('image'))->toMediaCollection('book_cover');
         }
 
         return redirect()->route('seller.books.index')

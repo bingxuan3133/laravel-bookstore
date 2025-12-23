@@ -42,7 +42,7 @@ class UserFactory extends Factory
         return $this->state(function (array $attributes) {
             return [
                 'name' => 'Admin ' . $attributes['name'],
-                'role' => UserRole::ADMIN,
+                'role' => UserRole::Admin,
             ];
         });
     }
@@ -52,7 +52,7 @@ class UserFactory extends Factory
         return $this->state(function (array $attributes) {
             return [
                 'name' => 'Seller ' . $attributes['name'],
-                'role' => UserRole::SELLER,
+                'role' => UserRole::Seller,
             ];
         })->afterCreating(function ($user) {
             $user->seller()->create([
@@ -68,7 +68,7 @@ class UserFactory extends Factory
         return $this->state(function (array $attributes) {
             return [
                 'name' => 'User ' . $attributes['name'],
-                'role' => UserRole::USER,
+                'role' => UserRole::User,
             ];
         });
     }

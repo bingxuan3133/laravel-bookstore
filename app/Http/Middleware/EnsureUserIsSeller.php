@@ -16,7 +16,7 @@ class EnsureUserIsSeller
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!auth()->check() || auth()->user()->role !== UserRole::SELLER) {
+        if (!auth()->check() || auth()->user()->role !== UserRole::Seller) {
             abort(Response::HTTP_FORBIDDEN, 'You are not registered as a seller.');
         }
 

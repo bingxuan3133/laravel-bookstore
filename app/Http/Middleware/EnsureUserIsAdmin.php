@@ -20,7 +20,7 @@ class EnsureUserIsAdmin
             return redirect()->route('login')->with('failed', 'Please login');
         }
 
-        if (auth()->user()->role !== UserRole::ADMIN) {
+        if (auth()->user()->role !== UserRole::Admin) {
             abort(Response::HTTP_FORBIDDEN, 'Unauthorized - Admin access required.');
         }
 

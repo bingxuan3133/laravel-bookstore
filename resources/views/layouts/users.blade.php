@@ -69,14 +69,15 @@
 
                     <!-- Cart Dropdown -->
                     <div class="relative group">
-                        <a href="#cart" class="bg-coral text-white px-6 py-2.5 border-3 border-neutral-900 shadow-brutal hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all duration-200 font-bold uppercase text-sm tracking-wide inline-flex items-center gap-2">
+                        <a href="{{ route('cart.index') }}" class="bg-coral text-white px-6 py-2.5 border-3 border-neutral-900 shadow-brutal hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all duration-200 font-bold uppercase text-sm tracking-wide inline-flex items-center gap-2">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
                             </svg>
                             <span>Cart ({{ count(session('cart', [])) }})</span>
                         </a>
 
-                        <!-- Cart Dropdown Content -->
+                        <!-- Cart Dropdown Content (hidden on cart page) -->
+                        @if(!request()->routeIs('cart.index') && !request()->routeIs('checkout.*'))
                         @php
                             $cart = session('cart', []);
                             $cartTotal = 0;
@@ -99,8 +100,8 @@
                                     @if($book)
                                     <div class="p-4 border-b-2 border-neutral-100 hover:bg-neutral-50 transition-colors">
                                         <div class="flex gap-3">
-                                            @if($book->hasMedia('book_covers'))
-                                                <img src="{{ $book->getFirstMediaUrl('book_covers', 'preview') }}"
+                                            @if($book->hasMedia('book_cover'))
+                                                <img src="{{ $book->getFirstMediaUrl('book_cover', 'preview') }}"
                                                      alt="{{ $book->title }}"
                                                      class="w-16 h-20 object-cover border-2 border-neutral-900 flex-shrink-0">
                                             @else
@@ -141,7 +142,7 @@
                                     <span class="font-bold uppercase tracking-wide text-sm">Total:</span>
                                     <span class="text-2xl font-black font-display text-coral">${{ number_format($cartTotal, 2) }}</span>
                                 </div>
-                                <a href="#cart" class="block w-full text-center bg-coral text-white py-3 border-3 border-neutral-900 shadow-brutal hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all duration-200 font-bold uppercase text-sm tracking-wide">
+                                <a href={{ route('cart.index') }} class="block w-full text-center bg-coral text-white py-3 border-3 border-neutral-900 shadow-brutal hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none transition-all duration-200 font-bold uppercase text-sm tracking-wide">
                                     View Cart
                                 </a>
                             </div>
@@ -159,6 +160,7 @@
                                 </a>
                             </div>
                         </div>
+                        @endif
                         @endif
                     </div>
                 </div>
